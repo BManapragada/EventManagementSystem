@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Admin Login";
+}
+
+<div class="container">    
+    <div class="center">
+        <h2 style="text-align:center;">Admin Login</h2>
+        <form action="/Admin/Admin" method="post">
+            @Html.AntiForgeryToken()
+
+            <div style="display: flex; padding: 1em;">
+                <label for="Username">Username</label>
+                <input type="text" name="Username" class="form-control" placeholder="Enter username" required />
+            </div>
+
+            <div style="display: flex; padding: 1em;">
+                <label for="Password">Password</label>
+                <input type="password" name="Password" class="form-control" placeholder="Enter password" required />
+            </div>
+
+            <div style="justify-content: center; display: flex; padding: 1em;">
+                <button style="border: none; width:15em; background-color: teal; color: white; width: 10em;" type="submit"> Login </button>
+            </div>
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger mt-3">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+        </form>
+    </div>
+</div>

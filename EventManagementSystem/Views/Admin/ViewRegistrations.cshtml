@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EventManagementSystem.Models.Registration>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Registrations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Registrations for Event</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var registration in Model)
+                {
+                    <tr>
+                        <td>@registration.FirstName</td>
+                        <td>@registration.LastName</td>
+                        <td>@registration.Email</td>
+                        <td>@registration.Phone</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">No registrations found for this event.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

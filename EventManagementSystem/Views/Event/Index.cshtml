@@ -1,0 +1,31 @@
+﻿@model IEnumerable<EventManagementSystem.Models.Event>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="center">
+    <div style="text-align:center">
+        <h2>Upcoming Events</h2>
+    </div>
+    @Html.AntiForgeryToken()
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evnt in Model)
+            {
+                <tr>
+                    <td>@evnt.Title</td>                
+                    <td>@evnt.Date.ToString("MM/dd/yyyy")</td>
+                    <td>@evnt.Location</td>
+                    <td>@Html.ActionLink("Details", "EventDetails", new { eventId = evnt.EventId })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

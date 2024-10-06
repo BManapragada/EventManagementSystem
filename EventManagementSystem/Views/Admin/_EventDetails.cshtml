@@ -1,0 +1,84 @@
+﻿@model EventManagementSystem.Models.Event
+<form method="post" id="eventForm">
+    @Html.AntiForgeryToken()
+    <div style="display: flex; justify-content: end;">
+        <button style="margin-right:3px;background-color: orange;border: none;" id="editButton" type="button" onclick="enableEdit()">Edit</button>
+        <button style="margin-right:3px; border: none; background-color: indianred;" id="deleteButton" type="button" onclick="deleteEvent(@Model.EventId)">Delete</button>
+        <button style="border: none;background-color: limegreen;" id="addButton" type="button" onclick="clearEventDetails()">Add New Event</button>
+    </div>
+    <div>
+        <label class ="Detailslabel" for="Title">Title</label>
+        <input type="text" id="Title" name="Title" class="form-control" value="@Model.Title" disabled="disabled" />
+    </div>
+
+    <div>
+        <label class="Detailslabel" for="Date">Date</label>
+        <input type="date" id="Date" name="Date" class="form-control" value="@Model.Date" disabled="disabled" />
+    </div>
+
+    <div>
+        <label class="Detailslabel" for="Location">Location</label>
+        <input type="text" id="Location" name="Location" class="form-control" value="@Model.Location" disabled="disabled" />
+    </div>
+
+    <div>
+        <label class="Detailslabel" for="Description">Description</label>
+        <textarea id="Description" name="Description" class="form-control" disabled="disabled">@Model.Description</textarea>
+    </div>
+
+    <input type="hidden" name="EventId" value="@Model.EventId" />
+
+    <!-- Save button, initially hidden -->
+    <div style="display: flex; justify-content: center;padding: 1em;">
+        <button style="border: none;
+                background-color: green;
+                color: white;
+                width: 5em;
+                font-weight: bold;"
+        id="saveButton" type="submit" onclick="saveDetails()">Save</button>
+    </div>
+    <a href="@Url.Action("ViewRegistrations", "Admin", new { eventId = @Model.EventId })">View Registrations</a>
+</form>
+    <script>
+        function enableEdit() {
+            $("#Title, #Description, #Date, #Location").removeAttr("disabled");
+            $('#saveButton').show(); // Show the Save button
+            // $('#deleteButton').attr("disabled");
+            $('#addButton').attr("disabled");
+            $('#editButton').attr("disabled");
+        }
+
+        // Disable editing of the fields
+        function disableEdit() {
+            $("#Title, #Description, #Date, #Location").attr("disabled", "disabled");
+            $("#saveButton").attr("disabled", "disabled");
+        }
+        function clearEventDetails() {
+            enableEdit();
+            // Clear all form fields
+            $('#Title').val('');
+            $('#Date').val('');
+            $('#Location').val('');
+            $('#Description').val('');
+            localStorage.setItem('isAddClicked', 'true')
+            
+        }
+    // Delete event (Add confirmation)
+        function deleteEvent1(eventId) {
+            // Call delete action
+            console.log("Delete Called");
+            $.ajax({
+                url: '@Url.Action("DeleteEvent", "Admin")/' + eventId,
+                type: 'Get',
+                data: eventId,
+                success: function (response) {
+                    alert('Event Deleted successfully');
+                },
+                error: function () {
+                    alert('Failed to Delete.');
+                }
+            });
+            // window.location.href = '@Url.Action("Delete", "Admin")';
+            // alert('Event Deleted successfully');
+        }
+    </script>

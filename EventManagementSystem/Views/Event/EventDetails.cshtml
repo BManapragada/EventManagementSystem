@@ -1,0 +1,19 @@
+﻿@model EventManagementSystem.Models.Event
+
+
+
+<div class="center" style="text-align:center">
+    <h2>Event Details</h2>
+    <div style="color:teal">
+        <h4>@Model.Title</h4>
+        <p>@Model.Description</p>
+        <p> Date: @Model.Date.ToString("MM/dd/yyyy")</p>
+        <p>Location: @Model.Location</p>
+        @* <p>@Html.ActionLink("Register", "Registration", new { eventId = Model.EventId })</p> *@
+    </div>
+    <button style="color: white; border:none; background-color: teal;"
+            onclick="window.location.href='@Url.Action("Registration", "Event", new { eventId = Model.EventId })'">
+        Register Now!
+    </button>
+    
+</div>

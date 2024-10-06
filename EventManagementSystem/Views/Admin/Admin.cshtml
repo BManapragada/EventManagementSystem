@@ -1,0 +1,117 @@
+﻿@model IEnumerable<EventManagementSystem.Models.Event>
+
+@{
+    ViewBag.Title = "Admin - Manage Events";
+}
+
+<h2 style="text-align:center; padding:1em;">Manage Events</h2>
+
+<div class="row">
+    <!-- Left Pane: List of Events -->
+    <div class="col-md-4">
+        <h3>Event List</h3>
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item" onclick="showDetails(@item.EventId)">
+                    @Html.DisplayFor(modelItem => item.Title)
+                    <div class="pull-right">
+                        @* <button class="btn btn-warning btn-sm" onclick="showDetails(@item.EventId)">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteEvent(@item.EventId)">Delete</button> *@
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Right Pane: Event Details -->
+    <div class="col-md-8">
+        <h4>Event Details</h4>
+        <div id="eventDetails">
+            <p>Select an event to see the details.</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        // Show event details in the right pane
+        function showDetails(eventId) {
+            console.log(eventId);
+
+            $.ajax({
+                url: '@Url.Action("GetEventDetails", "Admin")/' + eventId,
+                type: 'GET',                
+                success: function (data) {
+                    $('#eventDetails').html(data);
+                    
+                },
+                error: function () {
+                    alert('Failed to load details.');
+                }
+            });
+        }        
+        // Delete event (Add confirmation)
+        function deleteEvent(eventId) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                // Call delete action
+                $.ajax({
+                    url: '@Url.Action("DeleteEvent", "Admin")/' + eventId,
+                    type: 'Get',
+                    data:eventId,
+                    success: function (response) {
+                        alert('Event Deleted successfully');
+                    },
+                    error: function () {
+                        alert('Failed to Delete.');
+                    }
+                });
+            }
+        }
+        function saveDetails() {
+            var formData = $('#eventForm').serialize(); // Serialize the form data
+            const isAddClicked = localStorage.getItem('isAddClicked');
+            console.log(isAddClicked);
+            if (!isAddClicked) {
+                console.log("update");
+                $.ajax({
+                    url: '@Url.Action("UpdateEvent", "Admin")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Event updated successfully');
+                            disableEdit();
+                        } else {
+                            alert('Failed to update event: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error updating event.');
+                    }
+                });
+            }
+            else {
+                console.log("AddEvent");
+                $.ajax({
+                    url: '@Url.Action("CreateEvent", "Admin")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Event updated successfully');
+                            disableEdit();
+                        } else {
+                            alert('Failed to update event: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error updating event.');
+                    }
+                });
+            }
+
+            localStorage.removeItem('isAddClicked')
+        }
+    </script>
+}

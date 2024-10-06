@@ -1,0 +1,55 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+label{
+    padding:1em;
+    text-align:right;
+    
+}
+/*input{
+    width:15em;
+}*/
+th, tr, td{
+    padding:1em;
+}
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+/*label{
+    width:15em;
+}*/
+.Detailslabel{
+    text-align:justify;
+    font-weight:bold;
+}
+.registrationDiv{
+    display:flex;
+}
+.registrationLabel{
+    width: 15em;
+}
+.registrationInput {
+    height: 2em;
+    margin-top: 10px;
+}

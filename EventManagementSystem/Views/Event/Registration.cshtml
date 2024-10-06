@@ -1,0 +1,33 @@
+﻿@model EventManagementSystem.Models.Registration
+
+@using (Html.BeginForm("Register", "Registration", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="center">
+        <input type="hidden" id="EventID" name="EventID" value="@Model.EventID" />
+
+        <div class="registrationDiv">
+            <label class="registrationLabel"for=" FirstName">First Name</label>
+            <input class="registrationInput"type="text" id="FirstName" name="FirstName" value="@Model.FirstName" />
+        </div>
+
+        <div class="registrationDiv">
+            <label class="registrationLabel"for="LastName">Last Name</label>
+            <input class="registrationInput"type="text" id="LastName" name="LastName" value="@Model.LastName" />
+        </div>
+
+        <div class="registrationDiv">
+            <label class="registrationLabel"for="Email">Email</label>
+            <input class="registrationInput"type="email" id="Email" name="Email" value="@Model.Email" placeholder="Enter your email" />
+        </div>
+
+        <div class="registrationDiv">
+            <label class="registrationLabel"for="Phone">Phone</label>
+            <input class="registrationInput"type="text" id="Phone" name="Phone" value="@Model.Phone" />
+        </div>
+
+        <div style="display:flex; justify-content:center;">
+            <input style="color: white; width: 33%; border:none; background-color: teal" type="submit" value="Register" />
+        </div>
+    </div>
+}
