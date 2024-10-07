@@ -72,7 +72,8 @@ namespace EventManagementSystem.Controllers
             {
                 eventDbContext.Events.Add(@event);
                 eventDbContext.SaveChanges();
-                return RedirectToAction("Index"); // After adding, redirect to admin event list
+                return Json(new { success = true });
+                
             }
             return View(@event); // If validation fails, return to form
         }
