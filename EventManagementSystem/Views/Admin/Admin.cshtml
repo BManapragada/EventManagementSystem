@@ -60,7 +60,13 @@
                     type: 'Get',
                     data:eventId,
                     success: function (response) {
-                        alert('Event Deleted successfully');
+                        if (response.success) {
+                            alert('Event Deleted successfully');
+                            location.reload();
+                        }
+                        else {
+                            alert('Failed to Delete.')
+                        }
                     },
                     error: function () {
                         alert('Failed to Delete.');

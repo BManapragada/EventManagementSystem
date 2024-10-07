@@ -88,7 +88,7 @@ namespace EventManagementSystem.Controllers
             }
             eventDbContext.Events.Remove(evnt);
             eventDbContext.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
         public ActionResult ViewRegistrations(int eventId)
         {

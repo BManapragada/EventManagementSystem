@@ -53,3 +53,9 @@ th, tr, td{
     height: 2em;
     margin-top: 10px;
 }
+.eventDetailsButton:disabled{
+    display:none;
+}
+.eventDetailsButton:enabled{
+    display:block;
+}

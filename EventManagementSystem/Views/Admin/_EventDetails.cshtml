@@ -2,9 +2,9 @@
 <form method="post" id="eventForm">
     @Html.AntiForgeryToken()
     <div style="display: flex; justify-content: end;">
-        <button style="margin-right:3px;background-color: orange;border: none;" id="editButton" type="button" onclick="enableEdit()">Edit</button>
-        <button style="margin-right:3px; border: none; background-color: indianred;" id="deleteButton" type="button" onclick="deleteEvent(@Model.EventId)">Delete</button>
-        <button style="border: none;background-color: limegreen;" id="addButton" type="button" onclick="clearEventDetails()">Add New Event</button>
+        <button class="eventDetailsButton" style="margin-right:3px;background-color: orange;border: none;" id="editButton" type="button" onclick="enableEdit()">Edit</button>
+        <button class="eventDetailsButton" style="margin-right:3px; border: none; background-color: indianred;" id="deleteButton" type="button" onclick="deleteEvent(@Model.EventId)">Delete</button>
+        <button class="eventDetailsButton" style="border: none;background-color: limegreen;" id="addButton" type="button" onclick="clearEventDetails()">Add New Event</button>
     </div>
     <div>
         <label class ="Detailslabel" for="Title">Title</label>
@@ -34,8 +34,9 @@
                 background-color: green;
                 color: white;
                 width: 5em;
-                font-weight: bold;"
-        id="saveButton" type="submit" onclick="saveDetails()">Save</button>
+                font-weight: bold;
+                display:none;"
+        id="saveButton"  type="submit" onclick="saveDetails()">Save</button>
     </div>
     <a href="@Url.Action("ViewRegistrations", "Admin", new { eventId = @Model.EventId })">View Registrations</a>
 </form>
@@ -43,15 +44,15 @@
         function enableEdit() {
             $("#Title, #Description, #Date, #Location").removeAttr("disabled");
             $('#saveButton').show(); // Show the Save button
-            // $('#deleteButton').attr("disabled");
-            $('#addButton').attr("disabled");
-            $('#editButton').attr("disabled");
+            $('#deleteButton').hide();
+            $('#addButton').hide();
+            $('#editButton').hide();
         }
 
         // Disable editing of the fields
         function disableEdit() {
             $("#Title, #Description, #Date, #Location").attr("disabled", "disabled");
-            $("#saveButton").attr("disabled", "disabled");
+            $("#saveButton").hide();
         }
         function clearEventDetails() {
             enableEdit();
@@ -60,25 +61,8 @@
             $('#Date').val('');
             $('#Location').val('');
             $('#Description').val('');
+            $('#saveButton').show();
             localStorage.setItem('isAddClicked', 'true')
             
-        }
-    // Delete event (Add confirmation)
-        function deleteEvent1(eventId) {
-            // Call delete action
-            console.log("Delete Called");
-            $.ajax({
-                url: '@Url.Action("DeleteEvent", "Admin")/' + eventId,
-                type: 'Get',
-                data: eventId,
-                success: function (response) {
-                    alert('Event Deleted successfully');
-                },
-                error: function () {
-                    alert('Failed to Delete.');
-                }
-            });
-            // window.location.href = '@Url.Action("Delete", "Admin")';
-            // alert('Event Deleted successfully');
         }
     </script>
