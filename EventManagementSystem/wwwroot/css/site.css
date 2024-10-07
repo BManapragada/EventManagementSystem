@@ -25,9 +25,7 @@ label{
     text-align:right;
     
 }
-/*input{
-    width:15em;
-}*/
+
 th, tr, td{
     padding:1em;
 }
@@ -36,9 +34,8 @@ th, tr, td{
     width: 50%;
     padding: 10px;
 }
-/*label{
-    width:15em;
-}*/
+
+
 .Detailslabel{
     text-align:justify;
     font-weight:bold;

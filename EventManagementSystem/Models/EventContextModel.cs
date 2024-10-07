@@ -4,6 +4,9 @@ namespace EventManagementSystem.Models
 {
     public class EventContextModel:DbContext
     {
+        /// <summary>
+        /// defeining database params for connecting
+        /// </summary>
         public EventContextModel() : base(
             "Data Source=LAPTOP-AQMF6F59;" +
             "Initial Catalog=EventManagementSystemDb;" +

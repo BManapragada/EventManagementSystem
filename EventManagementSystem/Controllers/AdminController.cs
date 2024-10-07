@@ -9,10 +9,20 @@ namespace EventManagementSystem.Controllers
     {
         public EventContextModel eventDbContext = new EventContextModel();
 
+        /// <summary>
+        /// Basic Login form
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             return View();
         }
+
+        /// <summary>
+        /// To validate the details eneterd by admin
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Admin(IFormCollection form)
@@ -21,10 +31,8 @@ namespace EventManagementSystem.Controllers
             string? password = form["Password"];
 
             // Simulate authentication logic - replace this with your actual authentication mechanism
-            if (username == "admin" && password == "password") // Replace with actual authentication
+            if (username == "admin" && password == "12345") // Replace with actual authentication
             {
-                // If login is successful, redirect to admin dashboard
-                //return RedirectToAction("AdminDashboard", "Admin");
                 var events = eventDbContext.Events.ToList();
                 return View(events);
             }
@@ -37,6 +45,11 @@ namespace EventManagementSystem.Controllers
                 
         }
         
+        /// <summary>
+        /// To populate eventdetails of the selected event
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetEventDetails(int id)
         {
@@ -49,6 +62,11 @@ namespace EventManagementSystem.Controllers
             return PartialView("_EventDetails", eventItem); // Load details into a partial view
         }
 
+        /// <summary>
+        /// To update the event details in the database
+        /// </summary>
+        /// <param name="eventItem"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateEvent(Event eventItem)
@@ -64,6 +82,11 @@ namespace EventManagementSystem.Controllers
             return Json(new { success = false, message = "Invalid data" });
         }
 
+        /// <summary>
+        /// To create a new event in the database
+        /// </summary>
+        /// <param name="event"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateEvent([Bind("EventId,Title,Date,Location,Description")] Event @event)
@@ -79,7 +102,11 @@ namespace EventManagementSystem.Controllers
         }
        
 
-        
+        /// <summary>
+        /// To delete an existing event from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult DeleteEvent(int id)
         {
             var evnt = eventDbContext.Events.Find(id);
@@ -91,6 +118,12 @@ namespace EventManagementSystem.Controllers
             eventDbContext.SaveChanges();
             return Json(new { success = true });
         }
+
+        /// <summary>
+        /// To view registered users for a selected event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         public ActionResult ViewRegistrations(int eventId)
         {
             // Fetch registrations for the selected event using eventId

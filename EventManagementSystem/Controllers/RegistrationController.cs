@@ -8,6 +8,11 @@ namespace EventManagementSystem.Controllers
     {
         public EventContextModel eventDbContext = new EventContextModel();
 
+        /// <summary>
+        /// To register the user for the selected event
+        /// </summary>
+        /// <param name="registration"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(Registration registration)
